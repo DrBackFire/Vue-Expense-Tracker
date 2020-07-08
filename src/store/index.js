@@ -6,23 +6,49 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    Transcations: [],
+    Transactions: [],
 
-    Deleted: []
+    Deleted: [],
+
+    categories: [
+      { text: 'Select One', value: null },
+      'Mortgage(s)',
+      'Rent',
+      'Property taxes',
+      'Strata fee / condo fee',
+      'House / tenant insurance',
+      'Utility bills',
+      'Lease / car loan payment',
+      'Vehicle insurance',
+      'Life insurance',
+      'Bank fees',
+      'Debt payments',
+      'Groceries',
+      'Medication',
+      'Fuel',
+      'Public transportation costs',
+      'Parking',
+      'Clothing & shoes',
+      'Entertainment',
+      'Eating out',
+      'Tobacco / alcohol',
+      'Gym',
+      'Work lunches & snacks'
+    ]
   },
   getters: {
-    AllTranscations: state => {
-      return state.Transcations
+    AllTransactions: state => {
+      return state.Transactions
     },
 
     Balance: state => {
-      const amount = state.Transcations.map(i => i.amount)
+      const amount = state.Transactions.map(i => i.amount)
       const total = amount.reduce((x, y) => x + y, 0).toFixed(2)
       return total
     },
 
     Credit: state => {
-      const amount = state.Transcations.map(i => i.amount)
+      const amount = state.Transactions.map(i => i.amount)
       //Filter through and get the credit only
       const filterCredit = amount.filter(i => i > 0)
       //Add all credit
@@ -32,7 +58,7 @@ export default new Vuex.Store({
     },
 
     Expense: state => {
-      const amount = state.Transcations.map(i => i.amount)
+      const amount = state.Transactions.map(i => i.amount)
       //Filter through and get the expanse only
       const filterExpense = amount.filter(i => i < 0)
       //Add all credit
@@ -59,56 +85,56 @@ export default new Vuex.Store({
     },
 
     ExpenseArray: state => {
-      return state.Transcations.filter(Transcation => {
-        if (Transcation.amount < 0) return Transcation
+      return state.Transactions.filter(Transaction => {
+        if (Transaction.amount < 0) return Transaction
       })
     },
 
     CreditArray: state => {
-      return state.Transcations.filter(Transcation => {
-        if (Transcation.amount > 0) return Transcation
+      return state.Transactions.filter(Transaction => {
+        if (Transaction.amount > 0) return Transaction
       })
     },
 
-    // Deleted || Edited Transcations
+    // Deleted || Edited Transactions
 
-    editedTranscation: state => id => {
-      return state.Transcations.filter(i => i.id === id)
+    getTransaction: state => id => {
+      return state.Transactions.find(i => i.id === id)
     }
   },
 
   mutations: {
     // Fetching data from DB
     getTransactions: (state, transactions) => {
-      state.Transcations = transactions
+      state.Transactions = transactions
     },
     // Finding the transaction that needs an update || to be deleted
     findTransaction: (state, id) => {
-      const find = state.Transcations.find(i => i.id === id)
+      const find = state.Transactions.find(i => i.id === id)
       // Adding the old transaction to a new array
       state.Deleted.unshift(find)
     },
 
     // Removing the old transaction from the array
     filteringTransactions: (state, id) => {
-      state.Transcations = state.Transcations.filter(i => i.id !== id)
+      state.Transactions = state.Transactions.filter(i => i.id !== id)
     },
 
     // Deleting transactions
     deleTransaction: (state, id) => {
-      const find = state.Transcations.find(i => i.id === id)
+      const find = state.Transactions.find(i => i.id === id)
       state.Deleted.unshift(find)
-      state.Transcations = state.Transcations.filter(i => i.id !== id)
+      state.Transactions = state.Transactions.filter(i => i.id !== id)
     },
 
     // Updating the transactions with the new value
-    updateTranscations: (state, updatedTransaction) => {
-      state.Transcations.push(updatedTransaction)
+    updateTransactions: (state, updatedTransaction) => {
+      state.Transactions.push(updatedTransaction)
     },
 
     // Add newTransaction
     newTransaction: (state, newTransaction) => {
-      state.Transcations.unshift(newTransaction)
+      state.Transactions.unshift(newTransaction)
     }
   },
 
@@ -141,8 +167,8 @@ export default new Vuex.Store({
     },
 
     // Receiving the updated transaction
-    updateTranscations: (context, updatedTransaction) => {
-      context.commit('updateTranscations', updatedTransaction)
+    updateTransactions: (context, updatedTransaction) => {
+      context.commit('updateTransactions', updatedTransaction)
     },
 
     // Add newTransaction

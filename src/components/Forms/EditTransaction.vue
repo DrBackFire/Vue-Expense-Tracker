@@ -10,7 +10,7 @@
       >
         <b-form-input
           id="text"
-          :value="editedTranscation.text"
+          v-model="Transaction.text"
           type="text"
           ref="text"
           placeholder="Enter Text"
@@ -25,7 +25,7 @@
       >
         <b-form-input
           id="amount"
-          :value="editedTranscation.amount"
+          v-model="Transaction.amount"
           type="number"
           ref="amount"
           placeholder="Enter amount"
@@ -35,10 +35,12 @@
       <!-- Credit input -->
       <b-form-checkbox
         name="credit"
-        :value="editedTranscation.credit"
+        v-model="Transaction.credit"
         switch
         ref="credit"
-        v-on:change=";(credit = true), (expense = false)"
+        v-on:change="
+          ;(Transaction.credit = true), (Transaction.expense = false)
+        "
       >
         Credit
       </b-form-checkbox>
@@ -47,9 +49,11 @@
       <b-form-checkbox
         name="expense"
         switch
-        :value="editedTranscation.expense"
+        v-model="Transaction.expense"
         ref="expense"
-        v-on:change=";(credit = false), (expense = true)"
+        v-on:change="
+          ;(Transaction.credit = false), (Transaction.expense = true)
+        "
         >Expense
       </b-form-checkbox>
 
@@ -57,19 +61,24 @@
 
       <!-- Date Picker -->
       <b-form-group label="Date">
-        <Datepicker v-model="date" placeholder="Select date" />
+        <Datepicker
+          v-model="Transaction.date"
+          ref="date"
+          placeholder="Select date"
+        />
       </b-form-group>
 
       <!-- Category -->
       <b-form-group label="Category:" label-for="category">
-        <b-form-select id="category" v-model="selected" :options="category" />
+        <b-form-select
+          id="category"
+          v-model="Transaction.selected"
+          :options="category"
+        />
       </b-form-group>
 
       <b-button type="submit" variant="primary" class="text-white mr-2"
         >Submit</b-button
-      >
-      <b-button type="reset" variant="danger" class="text-white"
-        >Clear</b-button
       >
     </b-form>
   </div>
@@ -86,37 +95,10 @@ export default {
   },
   data() {
     return {
-      text: '',
-      amount: '',
-      credit: false,
-      expense: false,
+      Transaction: this.updatedTransaction(),
       selected: '',
       date: '',
-      category: [
-        { text: 'Select One', value: null },
-        'Mortgage(s)',
-        'Rent',
-        'Property taxes',
-        'Strata fee / condo fee',
-        'House / tenant insurance',
-        'Utility bills',
-        'Lease / car loan payment',
-        'Vehicle insurance',
-        'Life insurance',
-        'Bank fees',
-        'Debt payments',
-        'Groceries',
-        'Medication',
-        'Fuel',
-        'Public transportation costs',
-        'Parking',
-        'Clothing & shoes',
-        'Entertainment',
-        'Eating out',
-        'Tobacco / alcohol',
-        'Gym',
-        'Work lunches & snacks'
-      ],
+      category: this.$store.state.categories,
       showAlert: false,
       alertText: '',
       alertType: ''
@@ -132,52 +114,43 @@ export default {
       }, 3000)
     }
   },
-  computed: {
-    editedTranscation() {
-      return this.$store.getters.AllTranscations.find(i => i.id === this.id)
-    }
-  },
+
   methods: {
+    getTransaction() {
+      return this.$store.getters.getTransaction(this.id)
+    },
+
+    updatedTransaction() {
+      // Constructing the obj.
+      return {
+        id: this.id,
+        text: this.getTransaction().text,
+        amount: this.getTransaction().amount,
+        credit: this.getTransaction().credit,
+        expense: this.getTransaction().expense,
+        date: this.getTransaction().date,
+        selected: this.getTransaction().selected
+      }
+    },
+
     sendTransaction() {
       // Check user input
-      if (!this.editedTranscation.amount || !this.editedTranscation.text) {
+      if (!this.Transaction.amount || !this.Transaction.text) {
         this.alertText = 'Please fill all the inputs'
         this.showAlert = true
         this.alertType = 'warning'
-      } else if (!this.credit && !this.expense) {
+      } else if (!this.Transaction.credit && !this.Transaction.expense) {
         this.alertText = 'Please choose your transaction'
         this.showAlert = true
         this.alertType = 'warning'
       } else {
-        /* Finding the transaction that needs an update ||
-        to be deleted && sending it to the store */
-        this.$store.dispatch('findTransaction', this.id)
-
-        //Deleting the edited transcation
-        this.$store.dispatch('filteringTransactions', this.id)
-
-        // Updating the transcation
-        const updatedTransaction = {
-          id: this.id,
-          // Getting input from form
-          text: this.$refs.text._data.localValue,
-          amount: Number(this.$refs.amount._data.localValue)
-          // Because it returns a string, it needs to be a number
-        }
-
         // Sending the updated transaction
-        this.$store.dispatch('updateTranscations', updatedTransaction)
+        // this.$store.dispatch('updateTranscations', updatedTransaction)
 
-        console.log(updatedTransaction)
+        console.log(this.Transaction)
         this.$emit('Close')
 
         // Resetting inputs && showing alert
-        this.text = ''
-        this.amount = ''
-        this.credit = false
-        this.expense = false
-        this.date = ''
-        this.selected = null
         this.alertText = 'Success'
         this.showAlert = true
         this.alertType = 'success'

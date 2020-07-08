@@ -9,11 +9,10 @@
         variant="secondary"
         font-scale="1.5"
         class="mb-2 ml-3 edit-btn"
-        v-b-modal.modal-center
-        @click="id = transaction.id"
+        @click=";(id = transaction.id), (showModal = true)"
       ></b-icon>
     </div>
-    <EditModal :_id="id" />
+    <EditModal v-if="showModal" :_id="id" />
   </div>
 </template>
 
@@ -24,7 +23,8 @@ export default {
     return {
       id: '',
       credit: 'credit-card',
-      expense: 'bag-dash'
+      expense: 'bag-dash',
+      showModal: false
     }
   },
   components: {
@@ -32,7 +32,7 @@ export default {
   },
   computed: {
     Transactions() {
-      return this.$store.getters.AllTranscations
+      return this.$store.getters.AllTransactions
     }
   }
 }

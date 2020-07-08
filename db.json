@@ -1,6 +1,5 @@
 {
-  "Transactions": [
-    {
+  "Transactions": [{
       "id": 1,
       "text": "Flower",
       "amount": -250,
@@ -138,6 +137,8 @@
       "text": "Salary",
       "amount": 900,
       "selected": null,
+      "credit": true,
+      "expense": false,
       "date": "2020-07-03T01:04:08.496Z"
     },
     {
@@ -145,6 +146,8 @@
       "text": "Salary",
       "amount": 1000,
       "selected": "Rent",
+      "credit": true,
+      "expense": false,
       "date": "2020-07-01T01:11:00.000Z"
     },
     {
