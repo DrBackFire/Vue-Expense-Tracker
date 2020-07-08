@@ -1,0 +1,159 @@
+{
+  "Transactions": [
+    {
+      "id": 1,
+      "text": "Flower",
+      "amount": -250,
+      "credit": false,
+      "expense": true
+    },
+    {
+      "id": 2,
+      "text": "Salary",
+      "amount": 3000,
+      "credit": true,
+      "expense": false
+    },
+    {
+      "id": 3,
+      "text": "Book",
+      "amount": -100,
+      "credit": false,
+      "expense": true
+    },
+    {
+      "id": 4,
+      "text": "Store",
+      "amount": 150,
+      "credit": true,
+      "expense": false
+    },
+    {
+      "id": 5,
+      "text": "Camera",
+      "amount": -1500,
+      "credit": false,
+      "expense": true
+    },
+    {
+      "id": 6,
+      "text": "Apples",
+      "amount": -50,
+      "credit": false,
+      "expense": true
+    },
+    {
+      "id": 7,
+      "text": "Soap",
+      "amount": -20,
+      "credit": false,
+      "expense": true
+    },
+    {
+      "id": 8,
+      "text": "Gift",
+      "amount": 500,
+      "credit": true,
+      "expense": false
+    },
+    {
+      "id": 6646659,
+      "text": "Lighting ch",
+      "amount": -90,
+      "credit": false,
+      "expense": true
+    },
+    {
+      "id": 348828,
+      "text": "Lighting ch",
+      "amount": -50,
+      "credit": false,
+      "expense": true
+    },
+    {
+      "id": 1922167,
+      "text": "Headphones",
+      "amount": -100,
+      "credit": false,
+      "expense": true
+    },
+    {
+      "id": 3441203,
+      "text": "Screen Protector",
+      "amount": -90,
+      "credit": false,
+      "expense": true
+    },
+    {
+      "id": 3325523,
+      "text": "Gift",
+      "amount": 150,
+      "credit": true,
+      "expense": false
+    },
+    {
+      "id": 4166794,
+      "text": "Salary",
+      "amount": 920,
+      "credit": true,
+      "expense": false
+    },
+    {
+      "id": 7211918,
+      "text": "Rent",
+      "amount": -460,
+      "credit": false,
+      "expense": true
+    },
+    {
+      "id": 3314270,
+      "text": "GPU",
+      "amount": -600,
+      "credit": false,
+      "expense": true
+    },
+    {
+      "id": 3518030,
+      "text": "Book",
+      "amount": -20,
+      "credit": false,
+      "expense": true
+    },
+    {
+      "id": 7562424,
+      "text": "Salary",
+      "amount": 1000,
+      "credit": true,
+      "expense": false
+    },
+    {
+      "id": 9376204,
+      "text": "Mouse",
+      "amount": -90,
+      "credit": false,
+      "expense": true
+    },
+    {
+      "id": 2726440,
+      "text": "Salary",
+      "amount": 900,
+      "selected": null,
+      "date": "2020-07-03T01:04:08.496Z"
+    },
+    {
+      "id": 7867333,
+      "text": "Salary",
+      "amount": 1000,
+      "selected": "Rent",
+      "date": "2020-07-01T01:11:00.000Z"
+    },
+    {
+      "id": 804204,
+      "text": "Salary",
+      "amount": 434,
+      "selected": null,
+      "date": ""
+    }
+  ],
+  "Deleted": []
+}
