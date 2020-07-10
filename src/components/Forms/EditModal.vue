@@ -132,20 +132,17 @@ export default {
   },
 
   methods: {
-    getTransaction() {
-      return this.$store.getters.getTransaction(this._id)
-    },
-
     updatedTransaction() {
+      const getTransaction = this.$store.getters.getTransaction(this._id)
       // Constructing the obj.
       return {
         id: this._id,
-        text: this.getTransaction().text,
-        amount: this.getTransaction().amount,
-        credit: this.getTransaction().credit,
-        expense: this.getTransaction().expense,
-        date: this.getTransaction().date,
-        selected: this.getTransaction().selected
+        text: getTransaction.text,
+        amount: getTransaction.amount,
+        credit: getTransaction.credit,
+        expense: getTransaction.expense,
+        date: getTransaction.date,
+        selected: getTransaction.selected
       }
     },
 
